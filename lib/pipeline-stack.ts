@@ -5,11 +5,11 @@ import * as codepipeline_actions from "@aws-cdk/aws-codepipeline-actions";
 import { ShellScriptAction, SimpleSynthAction, CdkPipeline } from "@aws-cdk/pipelines";
 import { PipelineStage } from "./pipeline-stage";
 
-export class WorkshopPipelineStack extends cdk.Stack {
+export class PipelineStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    // Creates a CodeCommit repository called 'WorkshopRepo'
+    // Creates a CodeCommit repository called 'SoruceRepo'
     const repo = new codecommit.Repository(this, "SourceRepo", {
       repositoryName: "SourceRepo",
     });

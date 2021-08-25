@@ -2,10 +2,10 @@
 import "source-map-support/register";
 import * as cdk from "@aws-cdk/core";
 import { MlOpsStack } from "../lib/ml_ops-stack";
-import { WorkshopPipelineStack } from "../lib/pipeline-stack";
+import { PipelineStack } from "../lib/pipeline-stack";
 
 const app = new cdk.App();
-new WorkshopPipelineStack(app, "CdkWorkshopPipelineStack", {});
+new PipelineStack(app, "CdkWorkshopPipelineStack", {});
 new MlOpsStack(app, "MlOpsStack", {
   /* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,
