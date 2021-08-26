@@ -9,9 +9,9 @@ export class PipelineStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    // Creates a CodeCommit repository called 'SoruceRepo'
-    const repo = new codecommit.Repository(this, "SourceRepo", {
-      repositoryName: "SourceRepo",
+    // Creates a CodeCommit repository called 'cruzolivRepo'
+    const repo = new codecommit.Repository(this, "Repo", {
+      repositoryName: "cruzolivRepo",
     });
 
     // Defines the artifact representing the sourcecode
@@ -42,7 +42,7 @@ export class PipelineStack extends cdk.Stack {
       }),
     });
 
-    const deploy = new PipelineStage(this, "Prod");
+    const deploy = new PipelineStage(this, "Deploy");
     const deployStage = pipeline.addApplicationStage(deploy);
     deployStage.addActions(
       new ShellScriptAction({

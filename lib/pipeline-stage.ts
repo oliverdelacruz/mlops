@@ -1,5 +1,5 @@
-import { MlOpsStack } from "./ml_ops-stack";
-import { VpcStack } from "./vpc-stack";
+import { MlOpsStack } from "./stacks/workshop-stack";
+import { VpcStack } from "./stacks/vpc-stack";
 import { Stage, CfnOutput, Construct, StageProps } from "@aws-cdk/core";
 
 export class PipelineStage extends Stage {
