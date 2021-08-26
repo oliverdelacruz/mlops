@@ -5,7 +5,7 @@ import * as apigw from "@aws-cdk/aws-apigateway";
 import { HitCounter } from "../constructs/hitcounter";
 import { TableViewer } from "cdk-dynamo-table-viewer";
 
-export class MlOpsStack extends cdk.Stack {
+export class WorkshopStack extends cdk.Stack {
   public readonly hcViewerUrl: cdk.CfnOutput;
   public readonly hcEndpoint: cdk.CfnOutput;
 
