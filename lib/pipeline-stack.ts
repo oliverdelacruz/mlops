@@ -43,8 +43,8 @@ export class PipelineStack extends cdk.Stack {
       project,
       input: sourceArtifact,
       outputs: [new codepipeline.Artifact()], // optional
-      executeBatchBuild: true, // optional, defaults to false
-      combineBatchBuildArtifacts: true, // optional, defaults to false
+      executeBatchBuild: false, // optional, defaults to false
+      combineBatchBuildArtifacts: false, // optional, defaults to false
     });
 
     const pipe = new codepipeline.Pipeline(this, "MyPipeline", {
