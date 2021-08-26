@@ -1,8 +1,8 @@
 {
-  "name": "ml_ops",
+  "name": "ops",
   "version": "0.1.0",
   "bin": {
-    "ml_ops": "bin/ml_ops.js"
+    "ml_ops": "bin/app.js"
   },
   "scripts": {
     "build": "tsc",
