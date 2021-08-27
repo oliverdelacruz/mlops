@@ -3,6 +3,7 @@ import * as iam from "@aws-cdk/aws-iam";
 import * as codecommit from "@aws-cdk/aws-codecommit";
 import * as codebuild from "@aws-cdk/aws-codebuild";
 import * as codepipeline from "@aws-cdk/aws-codepipeline";
+import * as ecr from "@aws-cdk/aws-ecr";
 import * as codepipeline_actions from "@aws-cdk/aws-codepipeline-actions";
 import { ShellScriptAction, SimpleSynthAction, CdkPipeline } from "@aws-cdk/pipelines";
 import { PipelineStage } from "./pipeline-stage";
@@ -12,8 +13,13 @@ export class PipelineStack extends cdk.Stack {
     super(scope, id, props);
 
     // Creates a CodeCommit repository called 'cruzolivRepo'
-    const repo = new codecommit.Repository(this, "Repo", {
-      repositoryName: "cruzolivRepo",
+    const sourceRepository = new codecommit.Repository(this, "SourceRepository", {
+      repositoryName: "codecomit-repo",
+    });
+
+    // Creates a CodeCommit repository called 'cruzolivRepo'
+    const ecrRepository = new ecr.Repository(this, "ContainerRepository", {
+      repositoryName: "ecr-repo",
     });
 
     // Create role for CodeBuild
@@ -41,7 +47,7 @@ export class PipelineStack extends cdk.Stack {
     const sourceAction = new codepipeline_actions.CodeCommitSourceAction({
       actionName: "CodeCommit", // Any Git-based source control
       output: sourceArtifact, // Indicates where the artifact is stored
-      repository: repo, // Designates the repo to draw code from
+      repository: sourceRepository, // Designates the repo to draw code from
     });
 
     // Builds our source code outlined above into a could assembly artifact
@@ -53,6 +59,14 @@ export class PipelineStack extends cdk.Stack {
 
     // Defines a projects
     const project = new codebuild.PipelineProject(this, "Project", {
+      environmentVariables: {
+        IMAGE_REPO_NAME: {
+          value: ecrRepository.repositoryName,
+        },
+        IMAGE_TAG: {
+          value: "latest",
+        },
+      },
       role: codeBuildRole,
     });
 
@@ -63,6 +77,14 @@ export class PipelineStack extends cdk.Stack {
       outputs: [new codepipeline.Artifact()], // optional
       executeBatchBuild: false, // optional, defaults to false
       combineBatchBuildArtifacts: false, // optional, defaults to false
+      environmentVariables: {
+        IMAGE_REPO_NAME: {
+          value: ecrRepository.repositoryName,
+        },
+        IMAGE_TAG: {
+          value: "latest",
+        },
+      },
     });
 
     const pipeline = new codepipeline.Pipeline(this, "Pipeline", {
