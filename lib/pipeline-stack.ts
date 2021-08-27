@@ -60,6 +60,7 @@ export class PipelineStack extends cdk.Stack {
     // Defines a projects
     const project = new codebuild.PipelineProject(this, "Project", {
       environment: {
+        // we need to run Docker
         privileged: true,
       },
       environmentVariables: {
