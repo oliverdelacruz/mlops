@@ -28,17 +28,11 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - echo docker push $REPOSITORY_URI/$IMAGE_REPO_NAME:$IMAGE_TAG
+      - echo docker push $REPOSITORY_URI:$IMAGE_TAG
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - docker push $REPOSITORY_URI:$CODEBUILD_RESOLVED_SOURCE_VERSION
-      - echo $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG > image.url
-      - export imageTag=$CODEBUILD_RESOLVED_SOURCE_VERSION
+      - export imageTag=$REPOSITORY_URI:$CODEBUILD_RESOLVED_SOURCE_VERSION
       - echo Done
-artifacts:
-  files:
-    - image.url
-  name: image_url
-  discard-paths: yes
 env:
   exported-variables:
     - imageTag
