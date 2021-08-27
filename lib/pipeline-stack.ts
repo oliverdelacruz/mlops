@@ -22,7 +22,7 @@ export class PipelineStack extends cdk.Stack {
       roleName: `CodeBuilderRole`,
     });
 
-    //Add policy to the CodeBuild role
+    // Add policy to the CodeBuild role
     const codeBuildPolicy = {
       effect: iam.Effect.ALLOW,
       actions: ["codebuild:*", "s3:*", "ecr:*", "cloudwatch:*"],
@@ -52,7 +52,9 @@ export class PipelineStack extends cdk.Stack {
     });
 
     // Defines a projects
-    const project = new codebuild.PipelineProject(this, "Project");
+    const project = new codebuild.PipelineProject(this, "Project", {
+      role: codeBuildRole,
+    });
 
     const buildAction = new codepipeline_actions.CodeBuildAction({
       actionName: "CodeBuild",
@@ -81,6 +83,7 @@ export class PipelineStack extends cdk.Stack {
       ],
     });
 
+    pipeline.addStage(new PipelineStage(this, "Deploy"));
     // The basic pipeline declaration. This sets the initial structure
     // of our pipeline
     // const pipeline = new CdkPipeline(this, "Pipeline", {
