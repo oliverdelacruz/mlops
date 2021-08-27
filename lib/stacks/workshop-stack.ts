@@ -19,7 +19,7 @@ export class WorkshopStack extends cdk.Stack {
       versioned: true,
     });
 
-    // defines an AWS Lambda resource
+    // Defines an AWS Lambda resource
     const hello = new lambda.Function(this, "HelloHandler", {
       runtime: lambda.Runtime.NODEJS_14_X, // execution environment
       code: lambda.Code.fromAsset("lambda"), // code loaded from "lambda" directory
@@ -30,11 +30,12 @@ export class WorkshopStack extends cdk.Stack {
       downstream: hello,
     });
 
-    // defines an API Gateway REST API resource backed by our "hello" function.
+    // Defines an API Gateway REST API resource backed by our "hello" function.
     const gateway = new apigw.LambdaRestApi(this, "Endpoint", {
       handler: helloWithCounter.handler,
     });
 
+    // Defines the table viewer for the table.
     const tv = new TableViewer(this, "ViewHitCounter", {
       title: "Hello Hits",
       table: helloWithCounter.table,

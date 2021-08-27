@@ -1,4 +1,5 @@
 import * as cdk from "@aws-cdk/core";
+import * as iam from "@aws-cdk/aws-iam";
 import * as codecommit from "@aws-cdk/aws-codecommit";
 import * as codebuild from "@aws-cdk/aws-codebuild";
 import * as codepipeline from "@aws-cdk/aws-codepipeline";
@@ -15,6 +16,20 @@ export class PipelineStack extends cdk.Stack {
       repositoryName: "cruzolivRepo",
     });
 
+    // Create role for CodeBuild
+    const codeBuildRole = new iam.Role(this, `CodeBuilderRole`, {
+      assumedBy: new iam.ServicePrincipal("codebuild.amazonaws.com"),
+      roleName: `CodeBuilderRole`,
+    });
+
+    //Add policy to the CodeBuild role
+    const codeBuildPolicy = {
+      effect: iam.Effect.ALLOW,
+      actions: ["codebuild:*", "s3:*", "ecr:*", "cloudwatch:*"],
+      resources: ["*"],
+    };
+    codeBuildRole.addToPolicy(new iam.PolicyStatement(codeBuildPolicy));
+
     // Defines the artifact representing the sourcecode
     const sourceArtifact = new codepipeline.Artifact();
 
@@ -22,6 +37,7 @@ export class PipelineStack extends cdk.Stack {
     // (cloudformation template + all other assets)
     const cloudAssemblyArtifact = new codepipeline.Artifact();
 
+    // Defines the action to update any changes in repository
     const sourceAction = new codepipeline_actions.CodeCommitSourceAction({
       actionName: "CodeCommit", // Any Git-based source control
       output: sourceArtifact, // Indicates where the artifact is stored
@@ -47,7 +63,7 @@ export class PipelineStack extends cdk.Stack {
       combineBatchBuildArtifacts: false, // optional, defaults to false
     });
 
-    const pipe = new codepipeline.Pipeline(this, "Pipeline", {
+    const pipeline = new codepipeline.Pipeline(this, "Pipeline", {
       pipelineName: "Pipeline",
       stages: [
         {
