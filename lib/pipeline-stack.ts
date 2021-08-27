@@ -67,6 +67,9 @@ export class PipelineStack extends cdk.Stack {
         REPOSITORY_URI: {
           value: ecrRepository.repositoryUri,
         },
+        IMAGE_REPO_URI: {
+          value: ecrRepository.repositoryUri,
+        },
         IMAGE_REPO_NAME: {
           value: ecrRepository.repositoryName,
         },
@@ -86,6 +89,9 @@ export class PipelineStack extends cdk.Stack {
       combineBatchBuildArtifacts: false, // optional, defaults to false
       environmentVariables: {
         REPOSITORY_URI: {
+          value: ecrRepository.repositoryUri,
+        },
+        IMAGE_REPO_URI: {
           value: ecrRepository.repositoryUri,
         },
         IMAGE_REPO_NAME: {
