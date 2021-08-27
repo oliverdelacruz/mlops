@@ -36,3 +36,6 @@ artifacts:
     - image.url
   name: image_url
   discard-paths: yes
+env:
+  exported-variables:
+    - imageTag
