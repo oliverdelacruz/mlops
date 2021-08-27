@@ -47,31 +47,36 @@ export class PipelineStack extends cdk.Stack {
       combineBatchBuildArtifacts: false, // optional, defaults to false
     });
 
-    const pipe = new codepipeline.Pipeline(this, "MyPipeline", {
+    const pipe = new codepipeline.Pipeline(this, "Pipeline", {
+      pipelineName: "Pipeline",
       stages: [
         {
           stageName: "Source",
           actions: [sourceAction],
         },
         {
+          stageName: "Synth",
+          actions: [synthAction],
+        },
+        {
           stageName: "Build",
-          actions: [synthAction, buildAction],
+          actions: [buildAction],
         },
       ],
     });
 
     // The basic pipeline declaration. This sets the initial structure
     // of our pipeline
-    const pipeline = new CdkPipeline(this, "Pipeline", {
-      pipelineName: "Pipeline",
-      cloudAssemblyArtifact,
+    // const pipeline = new CdkPipeline(this, "Pipeline", {
+    //   pipelineName: "Pipeline",
+    //   cloudAssemblyArtifact,
 
-      // Generates the source artifact from the repo we created in the last step
-      sourceAction: sourceAction,
+    //   // Generates the source artifact from the repo we created in the last step
+    //   sourceAction: sourceAction,
 
-      // Builds our source code outlined above into a could assembly artifact
-      synthAction: synthAction,
-    });
+    //   // Builds our source code outlined above into a could assembly artifact
+    //   synthAction: synthAction,
+    // });
 
     // const deploy = new PipelineStage(this, "Deploy");
     // const deployStage = pipeline.addApplicationStage(deploy);
