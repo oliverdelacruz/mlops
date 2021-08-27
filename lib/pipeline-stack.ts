@@ -59,6 +59,9 @@ export class PipelineStack extends cdk.Stack {
 
     // Defines a projects
     const project = new codebuild.PipelineProject(this, "Project", {
+      environment: {
+        privileged: true,
+      },
       environmentVariables: {
         IMAGE_REPO_NAME: {
           value: ecrRepository.repositoryName,
