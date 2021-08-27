@@ -83,39 +83,32 @@ export class PipelineStack extends cdk.Stack {
       ],
     });
 
-    pipeline.addStage(new PipelineStage(this, "Deploy"));
-    // The basic pipeline declaration. This sets the initial structure
+    // The CDK pipeline declaration. This sets the initial structure
     // of our pipeline
-    // const pipeline = new CdkPipeline(this, "Pipeline", {
-    //   pipelineName: "Pipeline",
-    //   cloudAssemblyArtifact,
+    const Cdkpipeline = new CdkPipeline(this, "CdkPipeline", {
+      codePipeline: pipeline,
+      cloudAssemblyArtifact,
+    });
 
-    //   // Generates the source artifact from the repo we created in the last step
-    //   sourceAction: sourceAction,
-
-    //   // Builds our source code outlined above into a could assembly artifact
-    //   synthAction: synthAction,
-    // });
-
-    // const deploy = new PipelineStage(this, "Deploy");
-    // const deployStage = pipeline.addApplicationStage(deploy);
-    // deployStage.addActions(
-    //   new ShellScriptAction({
-    //     actionName: "TestViewerEndpoint",
-    //     useOutputs: {
-    //       ENDPOINT_URL: pipeline.stackOutput(deploy.hcViewerUrl),
-    //     },
-    //     commands: ["curl -Ssf $ENDPOINT_URL"],
-    //   })
-    // );
-    // deployStage.addActions(
-    //   new ShellScriptAction({
-    //     actionName: "TestAPIGatewayEndpoint",
-    //     useOutputs: {
-    //       ENDPOINT_URL: pipeline.stackOutput(deploy.hcEndpoint),
-    //     },
-    //     commands: ["curl -Ssf $ENDPOINT_URL/", "curl -Ssf $ENDPOINT_URL/hello", "curl -Ssf $ENDPOINT_URL/test"],
-    //   })
-    // );
+    const deploy = new PipelineStage(this, "Deploy");
+    const deployStage = Cdkpipeline.addApplicationStage(deploy);
+    deployStage.addActions(
+      new ShellScriptAction({
+        actionName: "TestViewerEndpoint",
+        useOutputs: {
+          ENDPOINT_URL: Cdkpipeline.stackOutput(deploy.hcViewerUrl),
+        },
+        commands: ["curl -Ssf $ENDPOINT_URL"],
+      })
+    );
+    deployStage.addActions(
+      new ShellScriptAction({
+        actionName: "TestAPIGatewayEndpoint",
+        useOutputs: {
+          ENDPOINT_URL: Cdkpipeline.stackOutput(deploy.hcEndpoint),
+        },
+        commands: ["curl -Ssf $ENDPOINT_URL/", "curl -Ssf $ENDPOINT_URL/hello", "curl -Ssf $ENDPOINT_URL/test"],
+      })
+    );
   }
 }
