@@ -21,7 +21,7 @@ phases:
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker build -t $REPOSITORY_URI:$CODEBUILD_RESOLVED_SOURCE_VERSION .
+      - docker build -t "$REPOSITORY_URI:$CODEBUILD_RESOLVED_SOURCE_VERSION" .
   post_build:
     commands:
       - echo Build completed on `date`
