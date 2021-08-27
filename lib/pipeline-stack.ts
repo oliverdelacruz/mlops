@@ -73,25 +73,25 @@ export class PipelineStack extends cdk.Stack {
       synthAction: synthAction,
     });
 
-    const deploy = new PipelineStage(this, "Deploy");
-    const deployStage = pipeline.addApplicationStage(deploy);
-    deployStage.addActions(
-      new ShellScriptAction({
-        actionName: "TestViewerEndpoint",
-        useOutputs: {
-          ENDPOINT_URL: pipeline.stackOutput(deploy.hcViewerUrl),
-        },
-        commands: ["curl -Ssf $ENDPOINT_URL"],
-      })
-    );
-    deployStage.addActions(
-      new ShellScriptAction({
-        actionName: "TestAPIGatewayEndpoint",
-        useOutputs: {
-          ENDPOINT_URL: pipeline.stackOutput(deploy.hcEndpoint),
-        },
-        commands: ["curl -Ssf $ENDPOINT_URL/", "curl -Ssf $ENDPOINT_URL/hello", "curl -Ssf $ENDPOINT_URL/test"],
-      })
-    );
+    // const deploy = new PipelineStage(this, "Deploy");
+    // const deployStage = pipeline.addApplicationStage(deploy);
+    // deployStage.addActions(
+    //   new ShellScriptAction({
+    //     actionName: "TestViewerEndpoint",
+    //     useOutputs: {
+    //       ENDPOINT_URL: pipeline.stackOutput(deploy.hcViewerUrl),
+    //     },
+    //     commands: ["curl -Ssf $ENDPOINT_URL"],
+    //   })
+    // );
+    // deployStage.addActions(
+    //   new ShellScriptAction({
+    //     actionName: "TestAPIGatewayEndpoint",
+    //     useOutputs: {
+    //       ENDPOINT_URL: pipeline.stackOutput(deploy.hcEndpoint),
+    //     },
+    //     commands: ["curl -Ssf $ENDPOINT_URL/", "curl -Ssf $ENDPOINT_URL/hello", "curl -Ssf $ENDPOINT_URL/test"],
+    //   })
+    // );
   }
 }

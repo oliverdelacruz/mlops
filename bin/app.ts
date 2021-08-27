@@ -1,12 +1,10 @@
 #!/usr/bin/env node
 import "source-map-support/register";
 import * as cdk from "@aws-cdk/core";
-import { WorkshopStack } from "../lib/stacks/workshop-stack";
 import { PipelineStack } from "../lib/pipeline-stack";
 
 const app = new cdk.App();
-new PipelineStack(app, "CdkPipelineStack", {});
-new WorkshopStack(app, "MlOpsStack", {
+new PipelineStack(app, "CdkPipelineStack", {
   /* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,
    * but a single synthesized template can be deployed anywhere. */
