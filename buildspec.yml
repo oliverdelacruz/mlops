@@ -19,9 +19,7 @@ phases:
     commands:
       - echo Login to ECR first
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-      - echo Using the following ECR repository URI $($REPOSITORY_URI)
       - echo Using the following ECR repository URI $REPOSITORY_URI
-      - echo Using the following ECR repository URI $IMAGE_REPO_URI
       - echo Using the following ECR repository name $IMAGE_REPO_NAME
       - echo Build started on `date`
       - echo Building the Docker image...
