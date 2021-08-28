@@ -30,7 +30,7 @@ phases:
       - echo Pushing the Docker image...
       - echo docker push $REPOSITORY_URI:$IMAGE_TAG
       - docker push $REPOSITORY_URI:$IMAGE_TAG
-      - docker push $REPOSITORY_URI:$CODEBUILD_RESOLVED_SOURCE_VERSION
+      - docker push $REPOSITORY_URI:$CODEBUILD_RESOLVED_SOURCE_VERSION:$IMAGE_TAG
       - export imageTag=$REPOSITORY_URI:$CODEBUILD_RESOLVED_SOURCE_VERSION:$IMAGE_TAG
       - echo Done
 env:
