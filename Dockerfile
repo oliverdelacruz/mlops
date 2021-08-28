@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM python:3.8-alpine
+FROM python:3.8-slim-buster
 
 # Set a docker label to advertise multi-model support on the container
 LABEL com.amazonaws.sagemaker.capabilities.multi-models=false
