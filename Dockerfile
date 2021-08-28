@@ -26,7 +26,7 @@ ENV PYTHONUNBUFFERED=TRUE
 ENV PYTHONDONTWRITEBYTECODE=TRUE
 
 # Copy files
-COPY ecr/* .
+COPY ecs/* ./
 
 # Run flask
 CMD [ "python", "-m" , "flask", "run", "--host=0.0.0.0"]
