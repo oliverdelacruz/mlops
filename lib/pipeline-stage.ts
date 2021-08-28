@@ -13,7 +13,6 @@ export class PipelineStage extends Stage {
 
     const service = new WorkshopStack(this, "WebService");
     const vpc = new VpcStack(this, "Vpc");
-    const iam = new IamStack(this, "Iam");
 
     this.hcEndpoint = service.hcEndpoint;
     this.hcViewerUrl = service.hcViewerUrl;
