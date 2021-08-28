@@ -29,4 +29,4 @@ ENV PYTHONDONTWRITEBYTECODE=TRUE
 COPY ecs/* ./
 
 # Run flask
-CMD [ "python", "-m" , "flask", "run", "--host=0.0.0.0"]
+CMD [ "python", "-m" , "flask", "run", "--host=0.0.0.0", "--port=8080"]

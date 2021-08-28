@@ -22,7 +22,7 @@ phases:
       - echo Using the following ECR repository name $IMAGE_REPO_NAME
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker build -t $REPOSITORY_URI:$IMAGE_TAG .
+      - docker build -t $REPOSITORY_URI:$IMAGE_TAG . 
       - docker tag $REPOSITORY_URI:$IMAGE_TAG $REPOSITORY_URI$CODEBUILD_RESOLVED_SOURCE_VERSION:$IMAGE_TAG
   post_build:
     commands:
