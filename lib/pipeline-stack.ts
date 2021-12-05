@@ -46,7 +46,7 @@ export class PipelineStack extends cdk.Stack {
     // Defines the action to update any changes in repository
     const sourceAction = new codepipeline_actions.CodeCommitSourceAction({
       actionName: "CodeCommit", // Any Git-based source control
-      output: cloudAssemblyArtifact, // Indicates where the artifact is stored
+      output: sourceArtifact, // Indicates where the artifact is stored
       repository: sourceRepository, // Designates the repo to draw code from
     });
 
@@ -84,7 +84,7 @@ export class PipelineStack extends cdk.Stack {
       actionName: "CodeBuild",
       project,
       input: sourceArtifact,
-      outputs: [cloudAssemblyArtifact], // optional
+      outputs: [new codepipeline.Artifact()], // optional
       executeBatchBuild: false, // optional, defaults to false
       combineBatchBuildArtifacts: false, // optional, defaults to false
       environmentVariables: {
