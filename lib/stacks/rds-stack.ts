@@ -21,7 +21,7 @@ export class RdsStack extends cdk.Stack {
     // Creates a cluster database with default settings
     this.rds = new rds.DatabaseCluster(this, "Database", {
       engine: rds.DatabaseClusterEngine.auroraPostgres({ version: rds.AuroraPostgresEngineVersion.VER_13_4 }),
-      credentials: rds.Credentials.fromGeneratedSecret("masteradmin"), // Optional - will default to 'admin' username and generated password
+      credentials: rds.Credentials.fromGeneratedSecret("MasterPostgresAdmin"), // Optional - will default to 'admin' username and generated password
       instanceProps: {
         vpc: props.vpc,
         // optional , defaults to t3.medium
