@@ -1,6 +1,7 @@
 import * as cdk from "@aws-cdk/core";
 import * as ec2 from "@aws-cdk/aws-ec2";
 import * as ecs from "@aws-cdk/aws-ecs";
+import * as ecr from "@aws-cdk/aws-ecr";
 import * as route53 from "@aws-cdk/aws-route53";
 import * as route53Targets from "@aws-cdk/aws-route53-targets";
 import * as ecsPatterns from "@aws-cdk/aws-ecs-patterns";
@@ -19,6 +20,7 @@ export interface SecureNetworkLoadBalancedTaskImageOptions
 export interface EcsServiceStackProps extends cdk.StackProps {
   readonly ecsCluster: ecs.Cluster;
   readonly ecsRole: iam.Role;
+  readonly ecrRepository: ecr.Repository;
   readonly privateHostedZone: route53.PrivateHostedZone;
   readonly privateCertificate: acm.DnsValidatedCertificate;
   readonly stackName?: string;
@@ -194,11 +196,7 @@ export class EcsServiceStack extends cdk.Stack {
     // Create a default container
     const containerName = "web";
     const container = this.taskDefinition.addContainer(containerName, {
-      image: new BrazilContainerImage({
-        brazilPackage: BrazilPackage.fromString("IBSCDeepSightBackend"),
-        transformPackage: BrazilPackage.fromString("IBSCDeepSightBackendImageBuild"),
-        componentName: "Ecsservice",
-      }),
+      image: ecs.ContainerImage.fromEcrRepository(props.ecrRepository),
       logging: logDriver,
       memoryLimitMiB: 8192,
       readonlyRootFilesystem: false,
