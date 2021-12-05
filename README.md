@@ -1,4 +1,4 @@
-# Welcome to your CDK TypeScript project
+# Welcome to your CDK TypeScript project MLOps
 
 This is a blank project for TypeScript development with CDK.
 
