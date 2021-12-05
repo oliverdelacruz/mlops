@@ -23,7 +23,6 @@ export interface EcsServiceStackProps extends cdk.StackProps {
   readonly ecrRepository: ecr.Repository;
   readonly privateHostedZone: route53.PrivateHostedZone;
   readonly privateCertificate: acm.DnsValidatedCertificate;
-  readonly stackName?: string;
   readonly domainName: string;
 }
 

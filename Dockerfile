@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # Set base image
-FROM tiangolo/meinheld-gunicorn-flask:python3.8
+FROM tiangolo/meinheld-gunicorn-flask:python3.9
 
 # Set working directory
 # WORKDIR /app

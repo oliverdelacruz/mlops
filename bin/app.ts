@@ -2,6 +2,7 @@
 import "source-map-support/register";
 import * as cdk from "@aws-cdk/core";
 import { PipelineStack } from "../lib/pipeline-stack";
+import { PipelineStage } from "../lib/pipeline-stage";
 
 const app = new cdk.App();
 new PipelineStack(app, "CdkPipelineStack", {
@@ -16,3 +17,4 @@ new PipelineStack(app, "CdkPipelineStack", {
   // env: { account: '123456789012', region: 'us-east-1' },
   /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
 });
+new PipelineStage(app, "CdkPipelineStage", {});
