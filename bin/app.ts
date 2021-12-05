@@ -19,4 +19,4 @@ new PipelineStack(app, "CdkPipelineStack", {
   /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
 });
 
-new PipelineStageStack(app, "CdkPipelineStage", {});
+new PipelineStageStack(app, "CdkPipelineStageStack", {});
