@@ -1,3 +1,4 @@
+import * as cdk from "@aws-cdk/core";
 import { Stage, CfnOutput, Construct, StageProps } from "@aws-cdk/core";
 import { WorkshopStack } from "./stacks/workshop-stack";
 import { VpcStack } from "./stacks/vpc-stack";
@@ -9,7 +10,6 @@ export class PipelineStage extends Stage {
   public readonly hcViewerUrl: CfnOutput;
   public readonly hcEndpoint: CfnOutput;
   public readonly codebuild: CfnOutput;
-
   constructor(scope: Construct, id: string, props?: StageProps) {
     super(scope, id, props);
 
@@ -19,5 +19,13 @@ export class PipelineStage extends Stage {
 
     this.hcEndpoint = service.hcEndpoint;
     this.hcViewerUrl = service.hcViewerUrl;
+  }
+}
+
+export class PipelineStageStack extends cdk.Stack {
+  readonly pipelineStage: PipelineStage;
+  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
+    this.pipelineStage = new PipelineStage(this, "PipelineStageStack", props);
   }
 }

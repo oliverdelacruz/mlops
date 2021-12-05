@@ -6,7 +6,7 @@ import * as codepipeline from "@aws-cdk/aws-codepipeline";
 import * as ecr from "@aws-cdk/aws-ecr";
 import * as codepipeline_actions from "@aws-cdk/aws-codepipeline-actions";
 import { ShellScriptAction, SimpleSynthAction, CdkPipeline } from "@aws-cdk/pipelines";
-import { PipelineStage } from "./pipeline-stage";
+import { PipelineStage } from "./stage-stack";
 
 export class PipelineStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
