@@ -1,18 +1,14 @@
 # syntax=docker/dockerfile:1
 
-FROM python:3.8-slim-buster
-
-# Set a docker label to advertise multi-model support on the container
-LABEL com.amazonaws.sagemaker.capabilities.multi-models=false
-
-# Set a docker label to enable container to use SAGEMAKER_BIND_TO_PORT environment variable if present
-LABEL com.amazonaws.sagemaker.capabilities.accept-bind-to-port=true
+# Set base image
+FROM tiangolo/meinheld-gunicorn-flask:python3.8
 
 # Set working directory
-WORKDIR /app
+# WORKDIR /app
 
 # By default, listen on port 8080
-EXPOSE 8080/tcp
+EXPOSE 8080
+ENV LISTEN_PORT 8080
 
 # Install common dependecies and libraries
 RUN apt-get update -y && apt-get -y install --no-install-recommends default-jdk
@@ -26,7 +22,5 @@ ENV PYTHONUNBUFFERED=TRUE
 ENV PYTHONDONTWRITEBYTECODE=TRUE
 
 # Copy files
-COPY ecs/* ./
-
-# Run flask
-CMD [ "python", "-m" , "flask", "run", "--host=0.0.0.0", "--port=8080"]
+COPY ./app /app
+EXPOSE 8080
