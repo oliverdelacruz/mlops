@@ -14,7 +14,7 @@ export class PipelineStack extends cdk.Stack {
 
     // Creates a CodeCommit repository called 'cruzolivRepo'
     const sourceRepository = new codecommit.Repository(this, "SourceRepository", {
-      repositoryName: "codecomit-repo",
+      repositoryName: "mlops-repo",
     });
 
     // Creates a CodeCommit repository called 'cruzolivRepo'
