@@ -16,8 +16,8 @@ export class PipelineStage extends Stage {
 
     const service = new WorkshopStack(this, "WebService", props);
     const vpc = new VpcStack(this, "Vpc", props);
-    // const cluster = new EcsClusterStack(this, "EcsCluster", {vpc: vpc.vpc, ...props });
-    const rds = new EcsClusterStack(this, "Rds", { vpc: vpc.vpc, ...props });
+    const cluster = new EcsClusterStack(this, "EcsCluster", { vpc: vpc.vpc, ...props });
+    const rds = new RdsStack(this, "Rds", { vpc: vpc.vpc, ...props });
 
     this.hcEndpoint = service.hcEndpoint;
     this.hcViewerUrl = service.hcViewerUrl;
@@ -25,9 +25,16 @@ export class PipelineStage extends Stage {
 }
 
 export class PipelineStageStack extends cdk.Stack {
+  public readonly hcViewerUrl: CfnOutput;
+  public readonly hcEndpoint: CfnOutput;
+  public readonly codebuild: CfnOutput;
   readonly pipelineStage: PipelineStage;
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
-    this.pipelineStage = new PipelineStage(this, "PipelineStageStack", props);
+
+    const service = new WorkshopStack(this, "WebService", props);
+    const vpc = new VpcStack(this, "Vpc", props);
+    const cluster = new EcsClusterStack(this, "EcsCluster", { vpc: vpc.vpc, ...props });
+    const rds = new RdsStack(this, "Rds", { vpc: vpc.vpc, ...props });
   }
 }
